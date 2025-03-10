@@ -6,7 +6,7 @@
 #include "lineeditwithoverwrite.h"
 #include "hexmodel.h"
 
-HexItemDelegate::HexItemDelegate(const HexModel &tableModel, ContinuousEditionTableView *tableView, QObject *parent)
+HexItemDelegate::HexItemDelegate(const HexModel &tableModel, QTableView *tableView, QObject *parent)
     : QStyledItemDelegate(parent),
     tableModel(tableModel),
     tableView(tableView)

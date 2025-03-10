@@ -5,13 +5,13 @@
 #include <QKeyEvent>
 #include <QMouseEvent>
 
-class ContinuousEditionTableView;
+class QTableView;
 
 class LineEditWithOverwrite : public QLineEdit
 {
     Q_OBJECT
 public:
-    LineEditWithOverwrite(bool isAscii, ContinuousEditionTableView *tableView, const QModelIndex &index, QWidget *parent = nullptr);
+    LineEditWithOverwrite(bool isAscii, QTableView *tableView, const QModelIndex &index, QWidget *parent = nullptr);
     bool getIsAscii() const;
     void setTextAndTruncate(const QString &text);
 

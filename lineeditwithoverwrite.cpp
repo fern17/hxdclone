@@ -1,9 +1,9 @@
 #include "lineeditwithoverwrite.h"
 #include "hexmodel.h"
-#include "continuouseditiontableview.h"
+#include <QTableView>
 
 LineEditWithOverwrite::LineEditWithOverwrite(bool isAscii,
-                                             ContinuousEditionTableView *tableView,
+                                             QTableView *tableView,
                                              const QModelIndex &index,
                                              QWidget *parent)
     : QLineEdit(parent),

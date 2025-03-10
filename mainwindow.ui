@@ -40,7 +40,7 @@
      </layout>
     </item>
     <item>
-     <widget class="ContinuousEditionTableView" name="hexTable"/>
+     <widget class="QTableView" name="hexTable"/>
     </item>
     <item>
      <spacer name="verticalSpacer">
@@ -58,13 +58,6 @@
    </layout>
   </widget>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>ContinuousEditionTableView</class>
-   <extends>QTableView</extends>
-   <header>continuouseditiontableview.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

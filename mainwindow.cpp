@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->loadFileButton, &QPushButton::clicked, this, &MainWindow::loadFile);
     connect(ui->saveFileButton, &QPushButton::clicked, this, &MainWindow::saveFile);
 
+    ui->hexTable->setFont(QFont("Courier", 10));
     ui->hexTable->setModel(&model);
 
     // calculate table cells sizes with dummy data
@@ -28,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->hexTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
     ui->hexTable->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
     ui->hexTable->setItemDelegate(new HexItemDelegate(model, ui->hexTable));
+
     model.setFileData("");
 }
 
