@@ -149,8 +149,9 @@ bool HexModel::setData(const QModelIndex &modelIndex, const QVariant &value, int
                         modifiedBytes.insert(offset);
                         emit dataChanged(modelIndex, modelIndex);
                     }
+                    return true;
                 }
-                return true;
+                return false;
             }
         }
     }
