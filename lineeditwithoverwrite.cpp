@@ -1,10 +1,49 @@
 #include "lineeditwithoverwrite.h"
+#include "hexmodel.h"
+#include "continuouseditiontableview.h"
 
-LineEditWithOverwrite::LineEditWithOverwrite(bool isAscii, QWidget *parent)
+LineEditWithOverwrite::LineEditWithOverwrite(bool isAscii,
+                                             ContinuousEditionTableView *tableView,
+                                             const QModelIndex &index,
+                                             QWidget *parent)
     : QLineEdit(parent),
-    isAscii(isAscii),
-    maxLength(isAscii ? 16 : 2)
-{}
+    isAscii(isAscii)
+{
+    connect(this, &LineEditWithOverwrite::endOfCellReached, this, [this, tableView, index]() {
+        int rowCount = tableView->model()->rowCount();
+        int col = index.column();
+        int row = index.row();
+        if (col >= HexModel::ASCII_COLUMN_START)
+        {
+            if (col < (HexModel::COLUMNS_PER_LINE - 1))
+            {
+                ++col;
+            }
+            else if (row < (rowCount - 1))
+            {
+                col = HexModel::ASCII_COLUMN_START;
+                ++row;
+            }
+        }
+        else
+        {
+            if (col < (HexModel::ASCII_COLUMN_START - 1))
+            {
+                ++col;
+            }
+            else if (row < (rowCount - 1))
+            {
+                col = 0;
+                ++row;
+            }
+        }
+        QModelIndex nextIndex(tableView->model()->index(row, col));
+        if (nextIndex.isValid() && nextIndex != index)
+        {
+            tableView->setCurrentIndex(nextIndex);
+        }
+    });
+}
 
 bool LineEditWithOverwrite::getIsAscii() const
 {
@@ -13,7 +52,7 @@ bool LineEditWithOverwrite::getIsAscii() const
 
 void LineEditWithOverwrite::setTextAndTruncate(const QString &text)
 {
-    QString truncatedText = text.left(maxLength);
+    QString truncatedText = text.left(isAscii ? 1 : 2);
     QLineEdit::setText(truncatedText);
 }
 
@@ -30,8 +69,7 @@ void LineEditWithOverwrite::keyPressEvent(QKeyEvent *event)
         }
         currentText.remove(pos, 1);
         currentText.insert(pos, event->text());
-        QString truncatedText = currentText.left(maxLength);
-        setText(truncatedText);
+        setTextAndTruncate(currentText);
         ++pos;
         setCursorPosition(pos);
         if (pos == currentText.length())

@@ -5,11 +5,13 @@
 #include <QKeyEvent>
 #include <QMouseEvent>
 
+class ContinuousEditionTableView;
+
 class LineEditWithOverwrite : public QLineEdit
 {
     Q_OBJECT
 public:
-    LineEditWithOverwrite(bool isAscii, QWidget *parent = nullptr);
+    LineEditWithOverwrite(bool isAscii, ContinuousEditionTableView *tableView, const QModelIndex &index, QWidget *parent = nullptr);
     bool getIsAscii() const;
     void setTextAndTruncate(const QString &text);
 
@@ -22,7 +24,6 @@ protected:
 
 private:
     bool isAscii;
-    int maxLength;
 };
 
 #endif // LINEEDITWITHOVERWRITE_H

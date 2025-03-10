@@ -8,7 +8,8 @@ class HexModel : public QAbstractTableModel
     Q_OBJECT
 public:
     static const int BYTES_PER_LINE = 16;
-    static const int ASCII_COLUMN = BYTES_PER_LINE;
+    static const int ASCII_COLUMN_START = BYTES_PER_LINE;
+    static const int COLUMNS_PER_LINE = 2 * BYTES_PER_LINE;
 
     HexModel(QObject *parent = nullptr);
 
@@ -24,9 +25,6 @@ public:
     bool setData(const QModelIndex &modelIndex, const QVariant &value, int role) override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
-
-private:
-    QString getAsciiDataInRow(int row) const;
 
 private:
     QByteArray fileData;

@@ -3,12 +3,13 @@
 
 #include <QStyledItemDelegate>
 class HexModel;
+class ContinuousEditionTableView;
 
 class HexItemDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
-    HexItemDelegate(const HexModel &tableModel, QObject *parent = nullptr);
+    HexItemDelegate(const HexModel &tableModel, ContinuousEditionTableView *tableView, QObject *parent = nullptr);
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
@@ -17,6 +18,7 @@ public:
 
 private:
     const HexModel &tableModel;
+    ContinuousEditionTableView *tableView;
 };
 
 #endif // HEXITEMDELEGATE_H
